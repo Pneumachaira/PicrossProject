@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in or Register</title>
+</head>
+<body style="background-color: lightslategrey;">
+    <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
+    </div>
+    <div style="display:flex; justify-content: space-around; width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
+        <div style="padding:20px; width:400px;">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <h1 style="color:midnightblue">Register</h1>
+            <form action="/register" method="POST">
+                <label for="username">Username</label><br>
+                <input type="text" name="username"><br><br>
+                <label for="password">Password</label><br>
+                <input type="password" name="password"><br><br>
+                <label for="confirmation">Confirm password</label><br>
+                <input type="password" name="confirmation"><br><br>
+                <input type="submit" value="Register" style="height:30px; width:80px; background-color: midnightblue; color:ghostwhite; border:none;">
+            </form>
+        </div>
+        <div style="padding:20px; width:400px;">
+            <h1 style="color: forestgreen;">Log in</h1>
+            <form action="/login" method="POST">
+                <label for="username">Username</label><br>
+                <input type="text" name="username"><br><br>
+                <label for="password">Password</label><br>
+                <input type="password" name="password"><br><br>
+                <input type="submit" value="Log in" style="height:30px; width:80px; background-color: forestgreen; color: ghostwhite; border:none;">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

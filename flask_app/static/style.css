@@ -1,0 +1,17 @@
+.column p{
+    height:20px;
+    margin:0;
+    text-align: center;
+}
+
+.rows p{
+    width:20px;
+    margin:0;
+    height:25px;
+    padding-top:2px;
+    text-align: center;
+}
+
+.rows {
+    align-items: center;
+}

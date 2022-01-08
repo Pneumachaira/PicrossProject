@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Solve!</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background-color: lightslategrey;">
+    <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
+    </div>
+    <div style="display:flex; justify-content: space-between; width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
+    <div class="main" style="display: flex; align-items: center; flex-direction: column; width:500px;">
+        <h1 style="margin-left: 200px;">{{puzzle.name[0]}}</h1>
+        <div id="overarching" style="width: 150px; margin-left: 200px;">
+            <div id="top" style="display: flex; justify-content: flex-end;">
+                {% for first in puzzle.columns %}
+                <div class="column" style="display: flex; flex-direction: column; width: 28px; justify-content: flex-end;">
+                    {% if first == [0] %}
+                        <p style="color:red">0</p>
+                    {% endif %}
+                    {% for second in first %}
+                    {% if second != 0 %}
+                    <p onclick="changeText(this)">{{second}}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <div id="bottom" style="display: flex; justify-content: flex-end;">
+                <div id="rows" style="display: flex; flex-direction: column;">
+                    {% for first in puzzle.rows %}
+                    <div class="rows" style="display: flex; justify-content: flex-end;">
+                        {% if first == [0] %}
+                            <p style="color:red">0</p>
+                        {% endif %}
+                        {% for second in first %}
+                        {% if second != 0 %}
+                        <p onclick="changeText(this)">{{second}}</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <form onclick="check(event,'{{puzzle.grid[0]}}')" id="picross">
+                        <div style="display: flex;">
+                            <input type="text" readonly name="1" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="2" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="3" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="4" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="5" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                        </div>
+                        <div style="display: flex;">
+                            <input type="text" readonly name="6" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="7" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="8" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="9" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="10" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                        </div>
+                        <div style="display: flex;">
+                            <input type="text" readonly name="11" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="12" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="13" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="14" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="15" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                        </div>
+                        <div style="display: flex;">
+                            <input type="text" readonly name="16" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="17" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="18" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="19" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="20" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                        </div>
+                        <div style="display: flex;">
+                            <input type="text" readonly name="21" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="22" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="23" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="24" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                            <input type="text" readonly name="25" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p style="margin-left: 200px;"><a href="/">Go back and do more puzzles?</a></p>
+    </div>
+    <div style="width:300px; margin-right: 100px;">
+        <h2>Helpful tips!</h2>
+        <p>You can right-click a cell if you're sure it's meant to be empty.</p>
+        <p>Bigger numbers are easier to start with!</p>
+        <p>Remember to leave a space between numbers!</p>
+    </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

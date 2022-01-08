@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Create!</title>
+</head>
+<body style="background-color: lightslategrey;">
+    <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
+    </div>
+    <div style="width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
+    <div style="padding-left: 400px;">
+        <form action="/submit5x5" method="POST">
+            <label for="name">Title</label><br>
+            <input type="text" name="name" style="width:130px;"><br><br>
+            <div style="display: flex;">
+            <input type="text" readonly name="1" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="2" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="3" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="4" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="5" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+        </div>
+        <div style="display: flex;">
+            <input type="text" readonly name="6" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="7" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="8" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="9" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="10" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+        </div>
+        <div style="display: flex;">
+            <input type="text" readonly name="11" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="12" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="13" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="14" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="15" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+        </div>
+        <div style="display: flex;">
+            <input type="text" readonly name="16" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="17" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="18" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="19" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="20" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+        </div>
+        <div style="display: flex;">
+            <input type="text" readonly name="21" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="22" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="23" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="24" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+            <input type="text" readonly name="25" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this)">
+        </div><br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js')}}"></script>
+</body>
+</html>
