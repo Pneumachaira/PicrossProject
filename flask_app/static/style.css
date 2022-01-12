@@ -15,3 +15,9 @@
 .rows {
     align-items: center;
 }
+
+#toolbar {
+    display: flex;
+    background-color: dodgerblue;
+    height: 80px;
+}

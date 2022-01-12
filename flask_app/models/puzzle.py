@@ -27,7 +27,7 @@ class Puzzle:
 
     @classmethod
     def get_recent_puzzles(cls):
-        query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY puzzles.id DESC LIMIT 5"
+        query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY puzzles.id DESC LIMIT 10"
         puzzles_db = connectToMySQL("picross_schema").query_db(query)
         puzzle_list = []
         for each in puzzles_db:
@@ -48,4 +48,14 @@ class Puzzle:
     @classmethod
     def add_puzzle(cls,data):
         query = "INSERT INTO puzzles (grid, name, value, user_id) VALUES (%(grid)s, %(name)s, %(value)s, %(user_id)s)"
+        return connectToMySQL("picross_schema").query_db(query,data)
+
+    @classmethod
+    def top_puzzles(cls):
+        query = "SELECT * FROM puzzles ORDER BY likes DESC LIMIT 3"
+        return connectToMySQL("picross_schema").query_db(query)
+
+    @classmethod
+    def get_puzzles_by_creator(cls,data):
+        query = "SELECT * FROM puzzles WHERE user_id = %(user_id)s"
         return connectToMySQL("picross_schema").query_db(query,data)

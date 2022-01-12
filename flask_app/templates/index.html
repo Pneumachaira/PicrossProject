@@ -10,6 +10,19 @@
     <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
         <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
     </div>
+    <div style="display: flex; background-color: lightsteelblue; height: 50px; width: 1100px; margin:auto; border-top: solid 1px lightslategray; border-bottom: solid 1px lightslategray">
+        {% if "username" not in session %}
+        <div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px; margin:auto"><h3 style="margin: 0px">You can play as a guest, but an account is needed to create puzzles and save scores!</h3></div>
+        <a style="text-decoration: none; color: black" href="/allPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">All Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/loginPage"><div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px"><h2 style="margin: 0px">Login/Registration</h2></div></a>
+        {% else %}
+        <div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px; margin:auto"><h2 style="margin: 0px">Welcome, {{session["username"]}}!</h2></div>
+        <a style="text-decoration: none; color: black" href="/myPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">My Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/allPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">All Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/create5x5"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">Create Puzzle</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/logout"><div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px"><h2 style="margin: 0px">Log out</h2></div></a>
+        {% endif %}
+    </div>
     <div style="width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -20,15 +33,7 @@
         {% endwith %}
         <div id="mainBody" style="display: flex; justify-content: space-between;">
             <div>
-                {% if "username" not in session %}
-                <h2 style="margin-top:0">Welcome to Picross Plaza!</h2>
-                <p>You can play as a guest, but you need to <a href="/loginPage">log in</a> to make a puzzle!</p>
-                {% else %}
-                <h2 style="margin-top:0">Welcome, {{session["username"]}}!</h2>
-                <p><a href="/logout">Log out?</a></p>
-                <p><a href="/create5x5">Create a puzzle?</a></p>
-                {% endif %}
-                <h2>Most Recent Puzzles</h2>
+                <h1 style="margin: 0px;">Most Recent Puzzles</h1>
                 {% for each in puzzles %}
                 <div style="display: flex; align-items: center; height:40px;">
                     <h2 style = "margin-right:10px;"><a href="/puzzle/{{each.id[0]}}">{{each.name[0]}}</a></h2>
@@ -37,14 +42,30 @@
                 {% endfor %}
             </div>
             <div style="width:50%">
-                <h2 style="margin: 0px 0px 5px 0px;">Top Solvers</h2>
-                <h3 style="padding-left: 10px; margin: 3px"><span style="background-color: gold; padding: 2px">#1</span> {{topScorers[0].username}} - {{topScorers[0].solvepoints}} points</h3>
-                <h3 style="padding-left: 10px; margin: 3px"><span style="background-color: silver; padding: 2px">#2</span> {{topScorers[1].username}} - {{topScorers[1].solvepoints}} points</h3>
-                <h3 style="padding-left: 10px; margin: 3px"><span style="background-color: darkgoldenrod; padding: 2px">#3</span> {{topScorers[2].username}} - {{topScorers[2].solvepoints}} points</h3>
-                <h2>Top Creators</h2>
-                <p>Coming soon!</p>
-                <h2>Top Puzzles</h2>
-                <p>Coming soon!</p>
+                <h2 style="margin: 0px 0px 5px 0px;">Top Puzzles</h2>
+                {% if topPuzzles|length > 2 %}
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: gold; padding: 2px">#1</span> <a href="/puzzle/{{topPuzzles[0].id}}">{{topPuzzles[0].name}}</a> - {{topPuzzles[0].likes}} likes</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: silver; padding: 2px">#2</span> <a href="/puzzle/{{topPuzzles[1].id}}">{{topPuzzles[1].name}}</a> - {{topPuzzles[1].likes}} likes</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: burlywood; padding: 2px">#3</span> <a href="/puzzle/{{topPuzzles[2].id}}">{{topPuzzles[2].name}}</a> - {{topPuzzles[2].likes}} likes</h3>
+                {% else %}
+                <h3>Insufficient data</h3>
+                {% endif %}
+                <h2 style="margin: 15px 0px 5px 0px;">Top Solvers</h2>
+                {% if topScorers|length > 2 %}
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: gold; padding: 2px">#1</span> {{topScorers[0].username}} - {{topScorers[0].solvepoints}} points</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: silver; padding: 2px">#2</span> {{topScorers[1].username}} - {{topScorers[1].solvepoints}} points</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: burlywood; padding: 2px">#3</span> {{topScorers[2].username}} - {{topScorers[2].solvepoints}} points</h3>
+                {% else %}
+                <h3>Insufficient data</h3>
+                {% endif %}
+                <h2 style="margin: 15px 0px 5px;">Top Creators</h2>
+                {% if topCreators|length > 2 %}
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: gold; padding: 2px">#1</span> {{topCreators[0].username}} - {{topCreators[0].likepoints}} points</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: silver; padding: 2px">#2</span> {{topCreators[1].username}} - {{topCreators[1].likepoints}} points</h3>
+                <h3 style="padding-left: 10px; margin: 4px"><span style="border-radius: 50%; background-color: burlywood; padding: 2px">#3</span> {{topCreators[2].username}} - {{topCreators[2].likepoints}} points</h3>
+                {% else %}
+                <h3>Insufficient data</h3>
+                {% endif %}
             </div>
         </div>
     </div>

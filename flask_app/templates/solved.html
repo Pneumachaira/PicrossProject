@@ -29,15 +29,12 @@
                     {% endif %}
                     {% endfor %}
                 </div>
-                <a href="/">Back home!</a>
-                <a href="/">I want to like this puzzle!</a>
             </div>
             </div>
-            <div id="hints" style="width:300px; margin-right: auto;">
+            <div id="hints" style="width:300px; margin-right: auto; margin-top: 9px">
                 <h2>Puzzle Completed!</h2>
-                <p>You can right-click a cell if you're sure it's meant to be empty.</p>
-                <p>Bigger numbers are easier to start with!</p>
-                <p>Remember to leave a space between numbers!</p>
+                Enjoyed the level? Give it a <a href="/like/{{puzzle.id[0]}}/{{puzzle.user_id}}"  style="background-color:dodgerblue; border-radius: 5px; padding: 5px; text-decoration: none; color: ghostwhite">Like!</a><br>
+                <p>Or you can just head back <a href="/">home!</a></p>
             </div>
         </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

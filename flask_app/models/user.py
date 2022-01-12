@@ -58,3 +58,8 @@ class User:
     def top_scorers(cls):
         query = "SELECT * FROM users ORDER BY solvepoints DESC LIMIT 3"
         return connectToMySQL("picross_schema").query_db(query)
+
+    @classmethod
+    def top_creators(cls):
+        query = "SELECT * FROM users ORDER BY likepoints DESC LIMIT 3"
+        return connectToMySQL("picross_schema").query_db(query)

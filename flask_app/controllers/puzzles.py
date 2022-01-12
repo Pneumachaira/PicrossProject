@@ -6,8 +6,26 @@ from flask_app.models.user import User
 @app.route("/")
 def index():
     puzzles = Puzzle.get_recent_puzzles()
-    topScorers = User.top_scorers();
-    return render_template("index.html", puzzles = puzzles, topScorers = topScorers)
+    topScorers = User.top_scorers()
+    topCreators = User.top_creators()
+    topPuzzles = Puzzle.top_puzzles()
+    return render_template("index.html", puzzles = puzzles, topScorers = topScorers, topCreators = topCreators, topPuzzles = topPuzzles)
+
+@app.route("/allPuzzles")
+def all_puzzles():
+    puzzles = Puzzle.get_all_puzzles()
+    return render_template("allPuzzles.html", puzzles = puzzles)
+
+@app.route("/myPuzzles")
+def my_puzzles():
+    if "username" not in session:
+        flash("Must be logged in to view that page")
+        return redirect("/loginPage")
+    data = {
+        "user_id": session["user_id"]
+    }
+    puzzles = Puzzle.get_puzzles_by_creator(data)
+    return render_template("myPuzzles.html", puzzles = puzzles)
 
 @app.route("/puzzle/<int:id>")
 def solvePuzzle(id):
@@ -146,100 +164,6 @@ def submit5x5():
     if request.form["name"] == "":
         flash("Must have a title!")
         return redirect("/create5x5")
-    columns = [[0],[0],[0],[0],[0]]
-    rows = [[0],[0],[0],[0],[0]]
-    i = 0
-    print(len(aString))
-    while (i * 5 < len(aString)-1): #i = 25
-        if (aString[0+i*5] == "0"):
-            columns[0].append(0)
-        else:
-            columns[0][len(columns[0])-1] += 1
-        i += 1   
-    if len(columns[0]) == 6:
-        columns[0] = [0]
-    i = 0
-    while (i * 5 < len(aString)-1): #i = 25
-        if (aString[1+i*5] == "0"):
-            columns[1].append(0)
-        else:
-            columns[1][len(columns[1])-1] += 1
-        i += 1   
-    if len(columns[1]) == 6:
-        columns[1] = [0]
-    i = 0
-    while (i * 5 < len(aString)-1): #i = 25
-        if (aString[2+i*5] == "0"):
-            columns[2].append(0)
-        else:
-            columns[2][len(columns[2])-1] += 1
-        i += 1   
-    if len(columns[2]) == 6:
-        columns[2] = [0]
-    i = 0
-    while (i * 5 < len(aString)-1): #i = 25
-        if (aString[3+i*5] == "0"):
-            columns[3].append(0)
-        else:
-            columns[3][len(columns[3])-1] += 1
-        i += 1   
-    if len(columns[3]) == 6:
-        columns[3] = [0]
-    i = 0
-    while (i * 5 < len(aString)-1): #i = 25
-        if (aString[4+i*5] == "0"):
-            columns[4].append(0)
-        else:
-            columns[4][len(columns[4])-1] += 1
-        i += 1
-    if len(columns[4]) == 6:
-        columns[4] = [0]
-    i = 0
-    #Time for the rows!
-    while(i * 5 < len(aString)-1):
-        if (aString[0+i] == "0"): #i = 0
-            rows[0].append(0)
-        else:
-            rows[0][len(rows[0])-1] += 1
-        i += 1
-    if len(rows[0]) == 6:
-        rows[0] = [0]
-    i = 0
-    while(i * 5 < len(aString)-1):
-        if (aString[5+i] == "0"): #i = 0
-            rows[1].append(0)
-        else:
-            rows[1][len(rows[1])-1] += 1
-        i += 1
-    if len(rows[1]) == 6:
-        rows[1] = [0]
-    i = 0
-    while(i * 5 < len(aString)-1):
-        if (aString[10+i] == "0"): #i = 0
-            rows[2].append(0)
-        else:
-            rows[2][len(rows[2])-1] += 1
-        i += 1
-    if len(rows[2]) == 6:
-        rows[2] = [0]
-    i = 0
-    while(i * 5 < len(aString)-1):
-        if (aString[15+i] == "0"): #i = 0
-            rows[3].append(0)
-        else:
-            rows[3][len(rows[3])-1] += 1
-        i += 1
-    if len(rows[3]) == 6:
-        rows[3] = [0]
-    i = 0
-    while(i * 5 < len(aString)-1):
-        if (aString[20+i] == "0"): #i = 0
-            rows[4].append(0)
-        else:
-            rows[4][len(rows[4])-1] += 1
-        i += 1
-    if len(rows[4]) == 6:
-        rows[4] = [0]
     data = {
         "name": request.form["name"],
         "grid": aString,
@@ -249,7 +173,3 @@ def submit5x5():
     Puzzle.add_puzzle(data)
     flash("Puzzle successfully created!")
     return redirect("/")
-
-@app.route("/submit10x10", methods=["POST"])
-def submit10x10():
-    pass
