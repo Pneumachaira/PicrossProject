@@ -23,7 +23,10 @@ def register():
     data["password"] = bcrypt.generate_password_hash(data["password"])
     User.add_user(data)
     flash("Account created successfully!")
-    return redirect("/loginPage")
+    user_in_db = User.get_user_by_username(data)
+    session["username"] = user_in_db.username
+    session["user_id"] = user_in_db.id
+    return redirect("/")
 
 @app.route("/login", methods=["POST"])
 def login():

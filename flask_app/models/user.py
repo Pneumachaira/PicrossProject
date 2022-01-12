@@ -12,6 +12,8 @@ class User:
         self.password = data["password"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+        self.solvepoints = data["solvepoints"]
+        self.likepoints = data["likepoints"]
 
     @staticmethod
     def validate(data):
@@ -51,3 +53,8 @@ class User:
             return False
         user_instance = User(users_db[0])
         return user_instance
+
+    @classmethod
+    def top_scorers(cls):
+        query = "SELECT * FROM users ORDER BY solvepoints DESC LIMIT 3"
+        return connectToMySQL("picross_schema").query_db(query)

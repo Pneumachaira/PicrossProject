@@ -1,11 +1,13 @@
 from flask_app import app #This one handles all of the routing
 from flask import render_template, redirect, request, session, flash
 from flask_app.models.puzzle import Puzzle
+from flask_app.models.user import User
 
 @app.route("/")
 def index():
     puzzles = Puzzle.get_recent_puzzles()
-    return render_template("index.html", puzzles = puzzles)
+    topScorers = User.top_scorers();
+    return render_template("index.html", puzzles = puzzles, topScorers = topScorers)
 
 @app.route("/puzzle/<int:id>")
 def solvePuzzle(id):
@@ -105,9 +107,6 @@ def solvePuzzle(id):
         i += 1
     if len(puzzle.rows[4]) == 6:
         puzzle.rows[4] = [0]
-
-
-
     if puzzle.value[0] == 1:
         return render_template("solve5x5.html", puzzle=puzzle)
     if puzzle.value[0] == 5:
@@ -141,6 +140,12 @@ def submit5x5():
     aString = ""
     for each in data:
         aString += each
+    if aString == "0000000000000000000000000":
+        flash("Can't submit an empty picross!")
+        return redirect("/create5x5")
+    if request.form["name"] == "":
+        flash("Must have a title!")
+        return redirect("/create5x5")
     columns = [[0],[0],[0],[0],[0]]
     rows = [[0],[0],[0],[0],[0]]
     i = 0

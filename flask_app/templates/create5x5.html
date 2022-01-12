@@ -11,7 +11,15 @@
         <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
     </div>
     <div style="width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
-    <div style="padding-left: 400px;">
+        <h1 style="text-align: center;">Create a Puzzle</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red; text-align: center;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div style="padding-left: 400px;">
         <form action="/submit5x5" method="POST">
             <label for="name">Title</label><br>
             <input type="text" name="name" style="width:130px;"><br><br>

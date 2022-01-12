@@ -12,6 +12,7 @@ class Puzzle:
         self.user_id = data["user_id"]
         self.columns = [[0],[0],[0],[0],[0]]
         self.rows = [[0],[0],[0],[0],[0]]
+        self.likes = data["likes"]
 
     @classmethod
     def get_all_puzzles(cls):
@@ -26,7 +27,7 @@ class Puzzle:
 
     @classmethod
     def get_recent_puzzles(cls):
-        query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY puzzles.id DESC LIMIT 3"
+        query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY puzzles.id DESC LIMIT 5"
         puzzles_db = connectToMySQL("picross_schema").query_db(query)
         puzzle_list = []
         for each in puzzles_db:

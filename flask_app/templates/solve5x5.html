@@ -45,7 +45,11 @@
                     {% endfor %}
                 </div>
                 <div style="display: flex; flex-direction: column;">
+                    {% if "username" in session %}
+                    <form onclick="userCheck(event,'{{puzzle.grid[0]}}', `{{puzzle.id[0]}}`)" id="picross">
+                    {% else %}
                     <form onclick="check(event,'{{puzzle.grid[0]}}')" id="picross">
+                    {% endif %}
                         <div style="display: flex;">
                             <input type="text" readonly name="1" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
                             <input type="text" readonly name="2" value="0" style="height:20px; width:20px; background-color: ghostwhite; color: ghostwhite; margin:0" onclick="change(this);" oncontextmenu="markOut(event, this)">
@@ -87,7 +91,7 @@
         </div>
         <p style="margin-left: 200px;"><a href="/">Go back and do more puzzles?</a></p>
     </div>
-    <div style="width:300px; margin-right: 100px;">
+    <div id="hints" style="width:300px; margin-right: auto;">
         <h2>Helpful tips!</h2>
         <p>You can right-click a cell if you're sure it's meant to be empty.</p>
         <p>Bigger numbers are easier to start with!</p>

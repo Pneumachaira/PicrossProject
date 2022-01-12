@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Time to Solve!</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    
+<body style="background-color: lightslategrey;">
+    <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
+    </div>    
+    <div style="display:flex; justify-content: space-between; width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
+        <div class="main" style="display: flex; align-items: center; flex-direction: column; width:500px;">
+            <div style="margin-left: 200px; display: flex; flex-direction: column;">
+                <h1>{{puzzle.name[0]}}</h1>
+                <div style="display: flex;">
+                    {% set count = [] %}
+                    {% for each in puzzle.grid[0] %}
+                    {% set trash = count.append(1) %}
+                    {% if each == "0" %}
+                    <input type="text" disabled style="height:20px; width:20px; background-color: ghostwhite; margin:0">
+                    {% else %}
+                    <input type="text" disabled style="height:20px; width:20px; background-color: black; margin:0">
+                    {% endif %}
+                    {% if count|length % 5 == 0 %}
+                </div><div style="display: flex;">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <a href="/">Back home!</a>
+                <a href="/">I want to like this puzzle!</a>
+            </div>
+            </div>
+            <div id="hints" style="width:300px; margin-right: auto;">
+                <h2>Puzzle Completed!</h2>
+                <p>You can right-click a cell if you're sure it's meant to be empty.</p>
+                <p>Bigger numbers are easier to start with!</p>
+                <p>Remember to leave a space between numbers!</p>
+            </div>
+        </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
