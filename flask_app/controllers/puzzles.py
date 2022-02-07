@@ -13,7 +13,7 @@ def index():
 
 @app.route("/allPuzzles")
 def all_puzzles():
-    puzzles = Puzzle.get_all_puzzles()
+    puzzles = Puzzle.get_all_puzzles_alphabet()
     return render_template("allPuzzles.html", puzzles = puzzles)
 
 @app.route("/myPuzzles")

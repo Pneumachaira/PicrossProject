@@ -26,6 +26,17 @@ class Puzzle:
         return puzzle_list
 
     @classmethod
+    def get_all_puzzles_alphabet(cls):
+        query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY name ASC"
+        puzzles_db = connectToMySQL("picross_schema").query_db(query)
+        puzzle_list = []
+        for each in puzzles_db:
+            puzzle_instance = Puzzle(each)
+            puzzle_instance.creator = user.User(each)
+            puzzle_list.append(puzzle_instance)
+        return puzzle_list
+
+    @classmethod
     def get_recent_puzzles(cls):
         query = "SELECT * FROM puzzles JOIN users ON user_id = users.id ORDER BY puzzles.id DESC LIMIT 10"
         puzzles_db = connectToMySQL("picross_schema").query_db(query)
