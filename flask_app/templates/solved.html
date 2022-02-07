@@ -10,7 +10,20 @@
 <body style="background-color: lightslategrey;">
     <div id="header" style="width: 1100px; height: 120px; margin:auto; background-color: lightsteelblue; justify-content: center; display: flex; align-items: center;">
         <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" style="height:100px;" alt="Picross Plaza Logo"></a>
-    </div>    
+    </div>
+    <div style="display: flex; background-color: lightsteelblue; height: 50px; width: 1100px; margin:auto; border-top: solid 1px lightslategray; border-bottom: solid 1px lightslategray">
+        {% if "username" not in session %}
+        <div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px; margin:auto"><h3 style="margin: 0px">You can play as a guest, but an account is needed to create puzzles and save scores!</h3></div>
+        <a style="text-decoration: none; color: black" href="/allPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">All Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/loginPage"><div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px"><h2 style="margin: 0px">Login/Registration</h2></div></a>
+        {% else %}
+        <div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px; margin:auto"><h2 style="margin: 0px">Welcome, {{session["username"]}}!</h2></div>
+        <a style="text-decoration: none; color: black" href="/myPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">My Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/allPuzzles"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; border-left: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">All Puzzles</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/create5x5"><div style="display: flex; padding: 0px 20px; margin:auto; align-items: center; justify-content: center; border-right: 1px solid lightslategray; height: 50px"><h2 style="margin: 0px">Create Puzzle</h2></div></a>
+        <a style="text-decoration: none; color: black" href="/logout"><div style="display: flex; padding: 0px 20px; align-items: center; justify-content: center; height: 50px"><h2 style="margin: 0px">Log out</h2></div></a>
+        {% endif %}
+    </div>
     <div style="display:flex; justify-content: space-between; width:1000px; padding: 10px 50px 50px; background-color: ghostwhite; margin:auto">
         <div class="main" style="display: flex; align-items: center; flex-direction: column; width:500px;">
             <div style="margin-left: 200px; display: flex; flex-direction: column;">
